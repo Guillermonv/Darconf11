@@ -8,13 +8,14 @@ def Author (SearchVar):
     options.add_argument('disable-infobars')
     driver=webdriver.Chrome(chrome_options=options, executable_path=r'C:\Users\Admin\darconf\chromedriver.exe')
     driver.get ("https://google.com/")
-    assert 'Bing' in driver.title
+   
+    assert 'Google' in driver.title
+   
     SearchBox = driver.find_element_by_name("q")
     SearchBox.send_keys(SearchVar)
     SearchBox.submit()
-    At = driver.find_elements_by_css_selector ('#gs_res_ccl_mid > div:nth-child(1) > div.gs_ri > div.gs_a')
-    for item in At:
-    	print(item.text)
-    wait = WebDriverWait(driver, 10)
-        	
+  
+    results = driver.find_elements_by_xpath('//div[@class="r"]/a/h3') 
+    results[0].click()
+  
 Author("darwoft")

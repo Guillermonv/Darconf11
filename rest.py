@@ -3,25 +3,21 @@ from pymongo import MongoClient
 from flask import request, jsonify
 
 client = MongoClient()
-
 client = MongoClient('localhost', 27017)
 db = client.local
-
 mycol = db["comapanies"]
-
-
 app = Flask(__name__)
 
 
 @app.route("/")
 def home_page():
-
-    return "Default page"
-
+    return "Welcome Darconf"
 
 @app.route("/company/<company>/<location>/<size>",  methods=["POST"])
 def add(company,location,size):
-    mydict = {"company": company, "location":location, "size":size}
+    mydict = {"company":  company,
+            "location":location,
+            "size":size}
 
     mycol.insert_one(mydict)
     return "Field inserted"
@@ -34,7 +30,7 @@ def getall():
     return jsonify({'result': output})
 
 
-@app.route("/getcompany/<company>")
+@app.route("/company/<company>")
 def getbyproperty(name):
     s = mycol.find_one({'company': company})
     if s:
@@ -43,7 +39,7 @@ def getbyproperty(name):
         output = "No such company"
     return jsonify({'result': output})
 
-@app.route("/del/<company>")
+@app.route("/company/<company>")
 def delperson(name):
  mycol.delete_one({'company': company})
  return "borrado"

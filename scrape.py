@@ -1,7 +1,5 @@
 from bs4 import BeautifulSoup
 import requests 
-
-
 def getMoneyStats(bank,url,classTable):
     row_num = 0
     try:

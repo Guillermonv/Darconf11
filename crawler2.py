@@ -12,13 +12,6 @@ class TestCrawler(Crawler):
             if host:
                 yield Request('http://%s/' % host, tag='page')
 
-    def handler_page(self, req, res):
-        print('Result of request to {}'.format(req.url))
-        try:
-            title = RE_TITLE.search(res.body).group(1)
-        except AttributeError:
-            title = 'N/A'
-        print('Title: {}'.format(title))
-
+    
 bot = TestCrawler(concurrency=10)
 bot.run()
